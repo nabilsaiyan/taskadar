@@ -1,19 +1,19 @@
 import React from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Tabs } from 'expo-router';
+import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, shadows, type } from '@/theme/theme';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { PressableScale } from '@/components/PressableScale';
+import { CONTENT_MAX_WIDTH } from '@/components/Screen';
+import { colors, shadows, spacing, type } from '@/theme/theme';
 
 export default function TabsLayout() {
   return (
     <Tabs
+      tabBar={(props) => <TabBar {...props} />}
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: colors.primary,
-        tabBarInactiveTintColor: colors.textFaint,
-        tabBarLabelStyle: styles.label,
-        tabBarStyle: styles.bar,
-        tabBarItemStyle: styles.item,
         sceneStyle: { backgroundColor: colors.background },
       }}
     >
@@ -22,7 +22,7 @@ export default function TabsLayout() {
         options={{
           title: 'Find',
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon name={focused ? 'sparkles' : 'sparkles-outline'} color={color} />
+            <Ionicons name={focused ? 'sparkles' : 'sparkles-outline'} size={23} color={color} />
           ),
         }}
       />
@@ -31,7 +31,7 @@ export default function TabsLayout() {
         options={{
           title: 'Provide',
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon name={focused ? 'briefcase' : 'briefcase-outline'} color={color} />
+            <Ionicons name={focused ? 'briefcase' : 'briefcase-outline'} size={23} color={color} />
           ),
         }}
       />
@@ -39,10 +39,49 @@ export default function TabsLayout() {
   );
 }
 
-function TabIcon({ name, color }: { name: keyof typeof Ionicons.glyphMap; color: import('react-native').ColorValue }) {
+/**
+ * Custom bottom tab bar. The surface spans the full width (so the top border
+ * and shadow reach the screen edges), but the tab items sit in a centered,
+ * width-capped row that lines up with the app's content column. Items are
+ * vertically centered and the bottom safe-area inset is respected on every
+ * platform (web has no inset, so nothing extra is added there).
+ */
+function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
+  const insets = useSafeAreaInsets();
+
   return (
-    <View style={styles.icon}>
-      <Ionicons name={name} size={23} color={color} />
+    <View style={[styles.bar, { paddingBottom: insets.bottom }]}>
+      <View style={styles.inner}>
+        {state.routes.map((route, index) => {
+          const { options } = descriptors[route.key];
+          const focused = state.index === index;
+          const color = focused ? colors.primary : colors.textFaint;
+          const label = (options.title ?? route.name) as string;
+
+          const onPress = () => {
+            const event = navigation.emit({ type: 'tabPress', target: route.key, canPreventDefault: true });
+            if (!focused && !event.defaultPrevented) {
+              navigation.navigate(route.name, route.params);
+            }
+          };
+
+          return (
+            <PressableScale
+              key={route.key}
+              onPress={onPress}
+              activeScale={0.9}
+              hover={false}
+              style={styles.item}
+              accessibilityRole="button"
+              accessibilityState={focused ? { selected: true } : {}}
+              accessibilityLabel={label}
+            >
+              {options.tabBarIcon?.({ focused, color, size: 23 })}
+              <Text style={[styles.label, { color }]}>{label}</Text>
+            </PressableScale>
+          );
+        })}
+      </View>
     </View>
   );
 }
@@ -52,11 +91,23 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: colors.border,
-    height: Platform.select({ ios: 86, default: 66 }),
-    paddingTop: 8,
+    alignItems: 'center',
     ...shadows.md,
   },
-  item: { paddingTop: 4 },
-  label: { ...type.tiny, fontWeight: '700', marginTop: 2 },
-  icon: { alignItems: 'center', justifyContent: 'center' },
+  inner: {
+    width: '100%',
+    maxWidth: CONTENT_MAX_WIDTH,
+    flexDirection: 'row',
+    paddingTop: spacing.sm,
+    paddingBottom: spacing.sm,
+    paddingHorizontal: spacing.lg,
+  },
+  item: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 3,
+    paddingVertical: 6,
+  },
+  label: { ...type.tiny, fontWeight: '700' },
 });
