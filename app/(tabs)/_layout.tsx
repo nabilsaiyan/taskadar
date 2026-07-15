@@ -87,7 +87,12 @@ function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 }
 
 const styles = StyleSheet.create({
+  // The whole bar is capped to the content width and centered, so on web/desktop
+  // the app reads like a phone: a centered column with a matching bottom bar.
   bar: {
+    width: '100%',
+    maxWidth: CONTENT_MAX_WIDTH,
+    alignSelf: 'center',
     backgroundColor: colors.surface,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: colors.border,
@@ -96,7 +101,6 @@ const styles = StyleSheet.create({
   },
   inner: {
     width: '100%',
-    maxWidth: CONTENT_MAX_WIDTH,
     flexDirection: 'row',
     paddingTop: spacing.sm,
     paddingBottom: spacing.sm,
