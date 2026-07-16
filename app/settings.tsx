@@ -9,6 +9,7 @@ import { AppHeader } from '@/components/AppHeader';
 import { Button } from '@/components/Button';
 import { PressableScale } from '@/components/PressableScale';
 import { useApiKey, apiKeyStore } from '@/store/apiKeyStore';
+import { ProviderIcon } from '@/components/BrandIcons';
 import { AI_PROVIDERS, PROVIDER_LIST, maskKey, type ProviderId } from '@/services/aiConfig';
 import { colors, radii, shadows, spacing, type } from '@/theme/theme';
 import { NO_OUTLINE } from '@/theme/webStyles';
@@ -92,7 +93,9 @@ export default function SettingsScreen() {
                   <View style={[styles.radio, isSelected && styles.radioOn]}>
                     {isSelected && <View style={styles.radioDot} />}
                   </View>
-                  <View style={[styles.providerDot, { backgroundColor: p.color }]} />
+                  <View style={styles.providerIcon}>
+                    <ProviderIcon id={p.id} size={20} />
+                  </View>
                   <View style={{ flex: 1 }}>
                     <View style={styles.providerNameRow}>
                       <Text style={styles.providerName}>{p.label}</Text>
@@ -215,7 +218,17 @@ const styles = StyleSheet.create({
   },
   radioOn: { borderColor: colors.primary },
   radioDot: { width: 10, height: 10, borderRadius: 999, backgroundColor: colors.primary },
-  providerDot: { width: 10, height: 10, borderRadius: 999 },
+  providerIcon: {
+    width: 34,
+    height: 34,
+    borderRadius: radii.md,
+    backgroundColor: colors.white,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: colors.border,
+    ...shadows.sm,
+  },
   providerNameRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   providerName: { ...type.bodyStrong, color: colors.ink },
   providerDesc: { ...type.small, color: colors.textMuted, marginTop: 1 },

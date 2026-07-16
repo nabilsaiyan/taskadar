@@ -27,6 +27,7 @@ import { PressableScale } from '@/components/PressableScale';
 import { CATEGORIES } from '@/data/providers';
 import { useApiKey } from '@/store/apiKeyStore';
 import { AI_PROVIDERS } from '@/services/aiConfig';
+import { ModelCluster } from '@/components/BrandIcons';
 import { categoryColors, colors, gradients, radii, shadows, spacing, type } from '@/theme/theme';
 import { NO_OUTLINE } from '@/theme/webStyles';
 
@@ -52,6 +53,14 @@ const CATEGORY_ICONS: Record<string, keyof typeof Ionicons.glyphMap> = {
   Gardening: 'leaf',
   Moving: 'cube',
   Electrician: 'flash',
+  Painting: 'color-fill',
+  'Tech Support': 'laptop',
+  Wellness: 'body',
+  'Auto Repair': 'car-sport',
+  Music: 'musical-notes',
+  Locksmith: 'key',
+  'Appliance Repair': 'build',
+  Events: 'balloon',
 };
 
 const STATS = [
@@ -95,11 +104,8 @@ export default function HomeScreen() {
             style={[styles.aiPill, hasKey && styles.aiPillActive]}
             accessibilityLabel="AI provider settings"
           >
-            <Ionicons
-              name={hasKey ? 'sparkles' : 'add-circle-outline'}
-              size={12}
-              color={hasKey ? colors.success : colors.primaryDark}
-            />
+            <ModelCluster chip={18} />
+            {hasKey && <Ionicons name="checkmark-circle" size={13} color={colors.success} />}
             <Text style={[styles.aiPillText, hasKey && styles.aiPillTextActive]}>
               {hasKey ? AI_PROVIDERS[provider].short : 'Connect AI'}
             </Text>
@@ -256,10 +262,11 @@ const styles = StyleSheet.create({
   aiPill: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
+    gap: 6,
     backgroundColor: colors.primarySoft,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingLeft: 5,
+    paddingRight: 11,
+    paddingVertical: 4,
     borderRadius: radii.pill,
   },
   aiPillActive: { backgroundColor: colors.successSoft },
