@@ -13,6 +13,7 @@ import { Button } from '@/components/Button';
 import { Stars } from '@/components/Stars';
 import { CategoryBadge } from '@/components/CategoryBadge';
 import { getProvider } from '@/services/api';
+import { categoryIcon } from '@/data/categories';
 import type { Provider } from '@/data/types';
 import { categoryGradient, colors, gradients, radii, shadows, spacing, type } from '@/theme/theme';
 
@@ -61,7 +62,11 @@ export default function ProviderScreen() {
           />
           {provider.image ? (
             <Image source={{ uri: provider.image }} style={styles.heroImg} contentFit="cover" transition={400} />
-          ) : null}
+          ) : (
+            <View style={styles.heroIconWrap} pointerEvents="none">
+              <Ionicons name={categoryIcon(provider.category)} size={132} color="rgba(255,255,255,0.22)" />
+            </View>
+          )}
           <LinearGradient colors={gradients.scrim} style={ABSOLUTE_FILL as any} />
           <View style={styles.heroContent}>
             <View style={styles.heroTop}>
@@ -188,6 +193,7 @@ const styles = StyleSheet.create({
 
   hero: { borderRadius: radii.xl, overflow: 'hidden', height: 230, ...shadows.md },
   heroImg: { ...ABSOLUTE_FILL },
+  heroIconWrap: { ...ABSOLUTE_FILL, alignItems: 'center', justifyContent: 'center' },
   heroContent: { flex: 1, justifyContent: 'flex-end', padding: spacing.xl },
   heroTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: spacing.sm },
   verifiedPill: {

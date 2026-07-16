@@ -3,16 +3,17 @@ import type { Provider } from './types';
 /**
  * Mock provider catalogue for the Taskadar demo.
  *
- * In production this data would come from a backend/database. The image URLs
- * are PLACEHOLDERS: keyword-matched stock photos (via LoremFlickr) so each one
- * is topically relevant to the trade, and stable per provider thanks to `lock`.
- * Swap them for real, licensed photography (or AI-generated art) later. Every
- * provider carries a `tags` array that the mock AI matcher scans against a
+ * In production this data would come from a backend/database. Providers
+ * currently use branded CATEGORY PLACEHOLDERS (a category-colored tile with the
+ * trade's icon) rather than stock photos — this keeps imagery clean, on-brand
+ * and free of any unintended content. Drop a real, vetted photo URL into a
+ * provider's `image` field to override the placeholder. The `keyword` passed
+ * below simply documents the intended subject for that future photography.
+ * Every provider carries a `tags` array the mock AI matcher scans against a
  * natural-language query.
  */
 
-const photo = (keyword: string, lock: number) =>
-  `https://loremflickr.com/640/440/${encodeURIComponent(keyword)}?lock=${lock}`;
+const photo = (_keyword: string, _lock: number) => '';
 
 export const PROVIDERS: Provider[] = [
   {

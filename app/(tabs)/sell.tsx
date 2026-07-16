@@ -17,6 +17,7 @@ import { PressableScale } from '@/components/PressableScale';
 import { Avatar } from '@/components/Avatar';
 import { CategoryBadge } from '@/components/CategoryBadge';
 import { addProviderListing } from '@/services/api';
+import { categoryIcon } from '@/data/categories';
 import { useProviders } from '@/store/providerStore';
 import type { Provider } from '@/data/types';
 import { categoryColors, colors, radii, shadows, spacing, type } from '@/theme/theme';
@@ -205,7 +206,7 @@ export default function SellScreen() {
               <View style={{ gap: spacing.md }}>
                 {myListings.map((p) => (
                   <Animated.View key={p.id} entering={FadeIn} layout={LinearTransition.springify()} style={styles.listingCard}>
-                    <Avatar name={p.name} category={p.category} size={46} rounded={false} />
+                    <Avatar name={p.name} category={p.category} icon={categoryIcon(p.category)} size={46} rounded={false} />
                     <View style={styles.listingText}>
                       <Text style={styles.listingName} numberOfLines={1}>
                         {p.name}

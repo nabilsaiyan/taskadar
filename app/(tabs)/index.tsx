@@ -25,6 +25,7 @@ import { Button } from '@/components/Button';
 import { Chip } from '@/components/Chip';
 import { PressableScale } from '@/components/PressableScale';
 import { CATEGORIES } from '@/data/providers';
+import { CATEGORY_ICONS } from '@/data/categories';
 import { useApiKey } from '@/store/apiKeyStore';
 import { AI_PROVIDERS } from '@/services/aiConfig';
 import { ModelCluster } from '@/components/BrandIcons';
@@ -39,29 +40,6 @@ const EXAMPLES: { label: string; icon: keyof typeof Ionicons.glyphMap }[] = [
   { label: 'Dog walker for the weekend', icon: 'paw-outline' },
   { label: 'Assemble my flat-pack desk', icon: 'construct-outline' },
 ];
-
-const CATEGORY_ICONS: Record<string, keyof typeof Ionicons.glyphMap> = {
-  Plumbing: 'water',
-  'Baking & Catering': 'restaurant',
-  Tutoring: 'school',
-  'Personal Training': 'barbell',
-  Cleaning: 'sparkles',
-  'Pet Sitting': 'paw',
-  Photography: 'camera',
-  Handyman: 'construct',
-  'Beauty & Hair': 'cut',
-  Gardening: 'leaf',
-  Moving: 'cube',
-  Electrician: 'flash',
-  Painting: 'color-fill',
-  'Tech Support': 'laptop',
-  Wellness: 'body',
-  'Auto Repair': 'car-sport',
-  Music: 'musical-notes',
-  Locksmith: 'key',
-  'Appliance Repair': 'build',
-  Events: 'balloon',
-};
 
 const STATS = [
   { value: '1,200+', label: 'Local pros' },

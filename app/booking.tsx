@@ -16,6 +16,7 @@ import { Screen } from '@/components/Screen';
 import { Button } from '@/components/Button';
 import { Avatar } from '@/components/Avatar';
 import { getProvider } from '@/services/api';
+import { categoryIcon } from '@/data/categories';
 import type { Provider } from '@/data/types';
 import { colors, radii, shadows, spacing, type } from '@/theme/theme';
 
@@ -53,7 +54,14 @@ export default function BookingScreen() {
         {/* Matched provider card */}
         {provider && (
           <Animated.View entering={FadeInDown.delay(420).springify().damping(18)} style={styles.card}>
-            <Avatar name={provider.name} category={provider.category} image={provider.image} size={54} rounded={false} />
+            <Avatar
+              name={provider.name}
+              category={provider.category}
+              image={provider.image}
+              icon={categoryIcon(provider.category)}
+              size={54}
+              rounded={false}
+            />
             <View style={styles.cardText}>
               <Text style={styles.cardName}>{provider.name}</Text>
               <Text style={styles.cardTagline} numberOfLines={1}>

@@ -7,6 +7,7 @@ import { Avatar } from './Avatar';
 import { CategoryBadge } from './CategoryBadge';
 import { Stars } from './Stars';
 import type { Provider } from '@/data/types';
+import { categoryIcon } from '@/data/categories';
 import { colors, radii, shadows, spacing, type } from '@/theme/theme';
 
 interface Props {
@@ -39,7 +40,14 @@ export function ProviderCard({ provider, onPress, index = 0, topMatch = false }:
         )}
 
         <View style={styles.header}>
-          <Avatar name={provider.name} category={provider.category} image={provider.image} size={60} rounded={false} />
+          <Avatar
+            name={provider.name}
+            category={provider.category}
+            image={provider.image}
+            icon={categoryIcon(provider.category)}
+            size={60}
+            rounded={false}
+          />
           <View style={styles.headerText}>
             <View style={styles.nameRow}>
               <Text style={styles.name} numberOfLines={1}>
