@@ -4,12 +4,15 @@ import type { Provider } from './types';
  * Mock provider catalogue for the Taskadar demo.
  *
  * In production this data would come from a backend/database. The image URLs
- * are PLACEHOLDERS (seeded Picsum photos) — they are meant to be swapped for
- * real, category-appropriate photography later. Every provider carries a `tags`
- * array that the mock AI matcher scans against a natural-language query.
+ * are PLACEHOLDERS: keyword-matched stock photos (via LoremFlickr) so each one
+ * is topically relevant to the trade, and stable per provider thanks to `lock`.
+ * Swap them for real, licensed photography (or AI-generated art) later. Every
+ * provider carries a `tags` array that the mock AI matcher scans against a
+ * natural-language query.
  */
 
-const img = (seed: string) => `https://picsum.photos/seed/taskadar-${seed}/640/440`;
+const photo = (keyword: string, lock: number) =>
+  `https://loremflickr.com/640/440/${encodeURIComponent(keyword)}?lock=${lock}`;
 
 export const PROVIDERS: Provider[] = [
   {
@@ -26,7 +29,7 @@ export const PROVIDERS: Provider[] = [
     priceRange: '$60 - $180',
     rating: 4.9,
     reviewCount: 214,
-    image: img('marco'),
+    image: photo('plumbing', 11),
     location: 'Downtown • 2.1 mi away',
     responseTime: 'Replies in ~10 min',
     verified: true,
@@ -56,7 +59,7 @@ export const PROVIDERS: Provider[] = [
     priceRange: '$35 - $250',
     rating: 4.8,
     reviewCount: 168,
-    image: img('bakery'),
+    image: photo('cake', 12),
     location: 'Riverside • 3.4 mi away',
     responseTime: 'Replies in ~25 min',
     verified: true,
@@ -86,7 +89,7 @@ export const PROVIDERS: Provider[] = [
     priceRange: '$30 - $45',
     rating: 5.0,
     reviewCount: 92,
-    image: img('tutor'),
+    image: photo('classroom', 13),
     location: 'Online + Northside',
     responseTime: 'Replies in ~1 hr',
     verified: true,
@@ -115,7 +118,7 @@ export const PROVIDERS: Provider[] = [
     priceRange: '$40 - $70',
     rating: 4.7,
     reviewCount: 131,
-    image: img('trainer'),
+    image: photo('gym', 14),
     location: 'Citywide (mobile)',
     responseTime: 'Replies in ~30 min',
     verified: true,
@@ -145,7 +148,7 @@ export const PROVIDERS: Provider[] = [
     priceRange: '$25 - $40',
     rating: 4.6,
     reviewCount: 203,
-    image: img('cleaning'),
+    image: photo('cleaning', 15),
     location: 'Metro-wide',
     responseTime: 'Replies in ~45 min',
     verified: true,
@@ -175,7 +178,7 @@ export const PROVIDERS: Provider[] = [
     priceRange: '$15 - $45',
     rating: 4.9,
     reviewCount: 87,
-    image: img('pets'),
+    image: photo('dog', 16),
     location: 'Greenfield & nearby',
     responseTime: 'Replies in ~20 min',
     verified: true,
@@ -205,7 +208,7 @@ export const PROVIDERS: Provider[] = [
     priceRange: '$120 - $600',
     rating: 4.8,
     reviewCount: 64,
-    image: img('photo'),
+    image: photo('camera', 17),
     location: 'Studio + on-location',
     responseTime: 'Replies in ~2 hrs',
     verified: true,
@@ -235,7 +238,7 @@ export const PROVIDERS: Provider[] = [
     priceRange: '$35 - $60',
     rating: 4.7,
     reviewCount: 176,
-    image: img('handyman'),
+    image: photo('tools', 18),
     location: 'Southbank • 1.8 mi away',
     responseTime: 'Replies in ~15 min',
     verified: true,
@@ -265,7 +268,7 @@ export const PROVIDERS: Provider[] = [
     priceRange: '$30 - $55',
     rating: 4.6,
     reviewCount: 58,
-    image: img('garden'),
+    image: photo('gardening', 19),
     location: 'Suburbs • mobile',
     responseTime: 'Replies in ~1 hr',
     verified: false,
@@ -295,7 +298,7 @@ export const PROVIDERS: Provider[] = [
     priceRange: '$70 - $150',
     rating: 4.9,
     reviewCount: 119,
-    image: img('electric'),
+    image: photo('electrician', 20),
     location: 'Downtown • 2.6 mi away',
     responseTime: 'Replies in ~35 min',
     verified: true,
@@ -325,7 +328,7 @@ export const PROVIDERS: Provider[] = [
     priceRange: '$25 - $120',
     rating: 4.8,
     reviewCount: 74,
-    image: img('beauty'),
+    image: photo('hairdresser', 21),
     location: 'Mobile • citywide',
     responseTime: 'Replies in ~40 min',
     verified: true,
@@ -355,7 +358,7 @@ export const PROVIDERS: Provider[] = [
     priceRange: '$45 - $90',
     rating: 4.5,
     reviewCount: 141,
-    image: img('moving'),
+    image: photo('moving-truck', 22),
     location: 'Regional • mobile',
     responseTime: 'Replies in ~50 min',
     verified: false,
@@ -368,6 +371,246 @@ export const PROVIDERS: Provider[] = [
     reviews: [
       { id: 'p12r1', author: 'Sophie L.', rating: 5, text: 'Moved my flat in 3 hours, nothing damaged. Great guys.', date: '1 week ago' },
       { id: 'p12r2', author: 'Raj K.', rating: 4, text: 'On time and careful with my furniture.', date: '1 month ago' },
+    ],
+  },
+  {
+    id: 'p13',
+    name: 'Fresh Coat Painters',
+    tagline: 'Interior & exterior painting',
+    category: 'Painting',
+    tags: [
+      'paint', 'painter', 'painting', 'decorating', 'decorator', 'walls', 'wall',
+      'ceiling', 'interior', 'exterior', 'primer', 'colour', 'color', 'feature wall',
+      'rooms', 'refresh',
+    ],
+    description:
+      'Tidy, dust-sheet-everything painters for single rooms, whole homes and exteriors. Clean lines, premium paints and no mess left behind.',
+    priceRange: '$180 - $450',
+    rating: 4.8,
+    reviewCount: 96,
+    image: photo('painting', 23),
+    location: 'Metro-wide',
+    responseTime: 'Replies in ~1 hr',
+    verified: true,
+    availability: ['tomorrow', 'weekend'],
+    services: [
+      { id: 'p13s1', title: 'Single room repaint', price: 180, unit: 'flat', description: 'Walls & ceiling, two coats.' },
+      { id: 'p13s2', title: 'Feature wall', price: 90, unit: 'flat', description: 'Accent colour or wallpaper prep.' },
+      { id: 'p13s3', title: 'Exterior day rate', price: 260, unit: 'per day', description: 'Fences, trims & facades.' },
+    ],
+    reviews: [
+      { id: 'p13r1', author: 'Nora K.', rating: 5, text: 'Transformed our lounge in a day — spotless finish.', date: '5 days ago' },
+      { id: 'p13r2', author: 'Alex P.', rating: 4, text: 'Great colour advice and very tidy.', date: '3 weeks ago' },
+    ],
+  },
+  {
+    id: 'p14',
+    name: 'TechAid Support',
+    tagline: 'Computer & home-tech help',
+    category: 'Tech Support',
+    tags: [
+      'computer', 'laptop', 'pc', 'tech', 'it', 'wifi', 'internet', 'network',
+      'printer', 'virus', 'setup', 'install', 'slow', 'repair', 'smart home',
+      'troubleshoot', 'phone', 'backup',
+    ],
+    description:
+      'Patient, jargon-free tech help for laptops, Wi-Fi, printers, smart-home gear and more — at your home or remotely. We fix the annoying stuff fast.',
+    priceRange: '$40 - $90',
+    rating: 4.9,
+    reviewCount: 128,
+    image: photo('laptop', 24),
+    location: 'Online + citywide',
+    responseTime: 'Replies in ~15 min',
+    verified: true,
+    availability: ['today', 'tomorrow', 'weekend'],
+    services: [
+      { id: 'p14s1', title: 'Remote fix (30 min)', price: 40, unit: 'flat', description: 'Screen-share troubleshooting.' },
+      { id: 'p14s2', title: 'Home visit', price: 70, unit: 'per hour', description: 'Wi-Fi, setup, virus removal.' },
+      { id: 'p14s3', title: 'New device setup', price: 90, unit: 'flat', description: 'Migrate & configure a new laptop.' },
+    ],
+    reviews: [
+      { id: 'p14r1', author: 'Margaret D.', rating: 5, text: 'Sorted my Wi-Fi and printer in 20 minutes. So patient.', date: '2 days ago' },
+      { id: 'p14r2', author: 'Kevin S.', rating: 5, text: 'Rescued all my files off a dying laptop. Hero.', date: '2 weeks ago' },
+    ],
+  },
+  {
+    id: 'p15',
+    name: 'Serene Touch Massage',
+    tagline: 'Mobile massage & wellness',
+    category: 'Wellness',
+    tags: [
+      'massage', 'wellness', 'relax', 'spa', 'therapist', 'deep tissue', 'sports',
+      'back', 'stress', 'mobile', 'aromatherapy', 'muscle', 'therapy', 'relaxation',
+      'pregnancy', 'reflexology',
+    ],
+    description:
+      'Qualified massage therapist bringing the spa to you. Deep-tissue, sports, relaxation and pregnancy massage — table, oils and calm playlist included.',
+    priceRange: '$60 - $110',
+    rating: 5.0,
+    reviewCount: 71,
+    image: photo('massage', 25),
+    location: 'Mobile • citywide',
+    responseTime: 'Replies in ~40 min',
+    verified: true,
+    availability: ['today', 'weekend'],
+    services: [
+      { id: 'p15s1', title: 'Relaxation (60 min)', price: 70, unit: 'flat', description: 'Full-body, at your home.' },
+      { id: 'p15s2', title: 'Deep tissue (60 min)', price: 85, unit: 'flat', description: 'Targeted knots & tension.' },
+      { id: 'p15s3', title: 'Sports recovery (90 min)', price: 110, unit: 'flat', description: 'For athletes & sore muscles.' },
+    ],
+    reviews: [
+      { id: 'p15r1', author: 'Chloe M.', rating: 5, text: 'Best massage I have had — and I didn’t leave the house!', date: '4 days ago' },
+      { id: 'p15r2', author: 'Ben A.', rating: 5, text: 'Sorted my running injury. Booking monthly now.', date: '1 month ago' },
+    ],
+  },
+  {
+    id: 'p16',
+    name: 'MobileMech Auto',
+    tagline: 'Mobile mechanic — we come to you',
+    category: 'Auto Repair',
+    tags: [
+      'car', 'mechanic', 'auto', 'vehicle', 'service', 'brakes', 'battery', 'engine',
+      'oil', 'tyre', 'tire', 'diagnostic', 'mot', 'breakdown', 'repair', 'clutch',
+      'mobile',
+    ],
+    description:
+      'Fully-equipped mobile mechanic servicing and repairing cars on your driveway. Batteries, brakes, diagnostics and pre-MOT checks — no garage trip needed.',
+    priceRange: '$50 - $220',
+    rating: 4.7,
+    reviewCount: 154,
+    image: photo('car-repair', 26),
+    location: 'Regional • mobile',
+    responseTime: 'Replies in ~30 min',
+    verified: true,
+    availability: ['today', 'tomorrow'],
+    services: [
+      { id: 'p16s1', title: 'Diagnostic check', price: 50, unit: 'flat', description: 'Read fault codes & advise.' },
+      { id: 'p16s2', title: 'Battery replacement', price: 120, unit: 'flat', description: 'Supplied & fitted on-site.' },
+      { id: 'p16s3', title: 'Full service', price: 220, unit: 'flat', description: 'Oil, filters & 30-point check.' },
+    ],
+    reviews: [
+      { id: 'p16r1', author: 'Priya N.', rating: 5, text: 'Fixed my brakes in the office car park. Genius.', date: '6 days ago' },
+      { id: 'p16r2', author: 'George T.', rating: 4, text: 'Honest, fair price, no upsell. Recommended.', date: '2 weeks ago' },
+    ],
+  },
+  {
+    id: 'p17',
+    name: 'Harmony Music Lessons',
+    tagline: 'Guitar, piano & singing tutor',
+    category: 'Music',
+    tags: [
+      'music', 'guitar', 'piano', 'singing', 'vocals', 'lessons', 'teacher', 'tutor',
+      'instrument', 'beginner', 'keyboard', 'theory', 'ukulele', 'practice', 'learn',
+      'kids',
+    ],
+    description:
+      'Friendly music teacher for all ages and levels — guitar, piano and singing. Learn the songs you love, online or in person, at a pace that suits you.',
+    priceRange: '$30 - $50',
+    rating: 4.9,
+    reviewCount: 63,
+    image: photo('guitar', 27),
+    location: 'Online + Eastside',
+    responseTime: 'Replies in ~1 hr',
+    verified: true,
+    availability: ['today', 'tomorrow', 'weekend'],
+    services: [
+      { id: 'p17s1', title: '30-min lesson', price: 30, unit: 'flat', description: 'Great for kids & beginners.' },
+      { id: 'p17s2', title: '1-hour lesson', price: 50, unit: 'flat', description: 'In-depth, any instrument.' },
+      { id: 'p17s3', title: '4-lesson block', price: 170, unit: 'flat', description: 'Save with a monthly plan.' },
+    ],
+    reviews: [
+      { id: 'p17r1', author: 'Ella R.', rating: 5, text: 'My daughter went from zero to playing songs in weeks!', date: '1 week ago' },
+      { id: 'p17r2', author: 'Marcus W.', rating: 5, text: 'Finally learning guitar at 40. Brilliant teacher.', date: '3 weeks ago' },
+    ],
+  },
+  {
+    id: 'p18',
+    name: 'KeyGuard Locksmiths',
+    tagline: '24/7 locksmith & lockouts',
+    category: 'Locksmith',
+    tags: [
+      'lock', 'locksmith', 'locked out', 'lockout', 'keys', 'key', 'door', 'security',
+      'change locks', 'rekey', 'break-in', 'emergency', 'uPVC', 'cylinder', 'safe',
+      'urgent',
+    ],
+    description:
+      'DBS-checked, 24/7 locksmiths for lockouts, lock changes and security upgrades. Non-destructive entry wherever possible — fast, calm and insured.',
+    priceRange: '$65 - $160',
+    rating: 4.8,
+    reviewCount: 187,
+    image: photo('locksmith', 28),
+    location: 'Citywide • 24/7',
+    responseTime: 'Replies in ~5 min',
+    verified: true,
+    availability: ['today', 'tomorrow', 'weekend'],
+    services: [
+      { id: 'p18s1', title: 'Emergency lockout', price: 65, unit: 'flat', description: 'Back inside, usually damage-free.' },
+      { id: 'p18s2', title: 'Lock change', price: 110, unit: 'flat', description: 'New lock supplied & fitted.' },
+      { id: 'p18s3', title: 'Security upgrade', price: 160, unit: 'flat', description: 'Anti-snap cylinders & advice.' },
+    ],
+    reviews: [
+      { id: 'p18r1', author: 'Hana B.', rating: 5, text: 'Locked out at midnight — here in 15 minutes. Lifesaver.', date: '3 days ago' },
+      { id: 'p18r2', author: 'Ivan D.', rating: 5, text: 'Changed all our locks after moving in. Very reassuring.', date: '1 month ago' },
+    ],
+  },
+  {
+    id: 'p19',
+    name: 'FixApp Appliance Repair',
+    tagline: 'Washer, fridge & oven repairs',
+    category: 'Appliance Repair',
+    tags: [
+      'appliance', 'washing machine', 'washer', 'dryer', 'fridge', 'freezer', 'oven',
+      'dishwasher', 'repair', 'fix', 'broken', 'not working', 'leaking', 'spare parts',
+      'microwave', 'cooker',
+    ],
+    description:
+      'Repairs for washing machines, fridges, ovens and dishwashers — most fixed in a single visit with common parts carried on the van.',
+    priceRange: '$55 - $140',
+    rating: 4.6,
+    reviewCount: 112,
+    image: photo('washing-machine', 29),
+    location: 'Metro-wide',
+    responseTime: 'Replies in ~35 min',
+    verified: true,
+    availability: ['today', 'tomorrow'],
+    services: [
+      { id: 'p19s1', title: 'Diagnosis & quote', price: 55, unit: 'flat', description: 'Waived if you go ahead.' },
+      { id: 'p19s2', title: 'Washer / dryer repair', price: 120, unit: 'flat', description: 'Common faults, parts included.' },
+      { id: 'p19s3', title: 'Oven / hob repair', price: 140, unit: 'flat', description: 'Elements, seals & controls.' },
+    ],
+    reviews: [
+      { id: 'p19r1', author: 'Tanya F.', rating: 5, text: 'Fixed my washer same day for less than a new one. Thank you!', date: '5 days ago' },
+      { id: 'p19r2', author: 'Omar H.', rating: 4, text: 'Knew the fault instantly. Fair and fast.', date: '2 weeks ago' },
+    ],
+  },
+  {
+    id: 'p20',
+    name: 'Beat Drop Events',
+    tagline: 'Party DJ & event setup',
+    category: 'Events',
+    tags: [
+      'dj', 'party', 'event', 'wedding', 'music', 'sound', 'lights', 'birthday',
+      'celebration', 'disco', 'mc', 'speakers', 'playlist', 'anniversary', 'corporate',
+      'dance',
+    ],
+    description:
+      'Experienced party DJ with pro sound and lighting for weddings, birthdays and corporate nights. Reads the room, takes requests, keeps the floor full.',
+    priceRange: '$250 - $700',
+    rating: 4.8,
+    reviewCount: 58,
+    image: photo('dj', 30),
+    location: 'Regional • mobile',
+    responseTime: 'Replies in ~2 hrs',
+    verified: true,
+    availability: ['weekend'],
+    services: [
+      { id: 'p20s1', title: 'Party package (4 hrs)', price: 400, unit: 'flat', description: 'DJ, sound & lights included.' },
+      { id: 'p20s2', title: 'Wedding package', price: 700, unit: 'flat', description: 'Ceremony to last dance.' },
+      { id: 'p20s3', title: 'Extra hour', price: 90, unit: 'per hour', description: 'Keep the party going.' },
+    ],
+    reviews: [
+      { id: 'p20r1', author: 'Lucy & Sam', rating: 5, text: 'Our wedding dancefloor was packed all night. Incredible.', date: '1 week ago' },
+      { id: 'p20r2', author: 'Dwayne C.', rating: 4, text: 'Great vibe reader, played all our requests.', date: '1 month ago' },
     ],
   },
 ];

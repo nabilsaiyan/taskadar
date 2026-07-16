@@ -59,6 +59,14 @@ export const categoryColors: Record<string, { bg: string; fg: string }> = {
   Gardening: { bg: '#E5F5E0', fg: '#3E9642' },
   Moving: { bg: '#EDEEF2', fg: '#5A6472' },
   Electrician: { bg: '#FFF6D9', fg: '#C99A06' },
+  Painting: { bg: '#EAF2FF', fg: '#3B6FE0' },
+  'Tech Support': { bg: '#E6F0F5', fg: '#2C7A9E' },
+  Wellness: { bg: '#FBEAF3', fg: '#C2478A' },
+  'Auto Repair': { bg: '#ECEEF1', fg: '#4B5563' },
+  Music: { bg: '#F1E9FF', fg: '#7C3AED' },
+  Locksmith: { bg: '#FFF3DE', fg: '#C98A0E' },
+  'Appliance Repair': { bg: '#E7F4F0', fg: '#1F9E7A' },
+  Events: { bg: '#FFE9F0', fg: '#E5417D' },
 };
 
 export const spacing = {
