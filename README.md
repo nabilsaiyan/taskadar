@@ -117,6 +117,21 @@ Expo SDK 54 · React Native 0.81 · React 19 · TypeScript (strict) · Expo Rout
 React Native Reanimated · expo-image · expo-linear-gradient · AsyncStorage ·
 Gemini / Claude / OpenAI REST APIs
 
+## Customizing branding & imagery
+
+**Provider logos** — the Gemini / Claude / OpenAI marks in the AI pill and the
+settings screen render from `assets/logos/{gemini,claude,openai}.svg`. The files
+shipped here are simple placeholders; drop the official logo SVGs in with the
+same filenames and they render automatically (no code changes — powered by
+`react-native-svg-transformer`, configured in `metro.config.js`).
+
+**Provider images** — provider cards and profiles show a clean, on-brand
+category placeholder (a category-colored tile with the trade's icon). To use a
+real photo for a provider, set its `image` field in `src/data/providers.ts` to
+an image URL (or a local `require(...)`) — it renders over the placeholder, and
+the placeholder remains the fallback if the image is missing. Use your own vetted
+photography or AI-generated art so imagery stays appropriate and on-brand.
+
 ## Deployment
 
 The web build is a static SPA. A `vercel.json` is included with the correct build
