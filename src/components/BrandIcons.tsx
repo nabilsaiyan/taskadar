@@ -1,39 +1,44 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import GeminiLogo from '../../assets/logos/gemini.svg';
-import ClaudeLogo from '../../assets/logos/claude.svg';
-import OpenAILogo from '../../assets/logos/openai.svg';
+import { Image } from 'expo-image';
 
 /**
  * Provider brand logos.
  *
- * These render the SVG files in `assets/logos/`. To use the exact official
- * marks, replace those three files (`gemini.svg`, `claude.svg`, `openai.svg`)
- * with the providers' official logo SVGs — no code changes needed. The files
- * shipped in the repo are simple placeholder marks.
+ * These render the official logo images in `assets/logos/`. To change a logo,
+ * replace the matching PNG (`gemini.png`, `claude.png`, `openai.png`) — no code
+ * changes needed.
  */
+
+const LOGOS = {
+  gemini: require('../../assets/logos/gemini.png'),
+  claude: require('../../assets/logos/claude.png'),
+  openai: require('../../assets/logos/openai.png'),
+} as const;
 
 interface IconProps {
   size?: number;
 }
 
+function Logo({ source, size }: { source: number; size: number }) {
+  return <Image source={source} style={{ width: size, height: size }} contentFit="contain" />;
+}
+
 export function GeminiIcon({ size = 16 }: IconProps) {
-  return <GeminiLogo width={size} height={size} />;
+  return <Logo source={LOGOS.gemini} size={size} />;
 }
 
 export function ClaudeIcon({ size = 16 }: IconProps) {
-  return <ClaudeLogo width={size} height={size} />;
+  return <Logo source={LOGOS.claude} size={size} />;
 }
 
 export function OpenAIIcon({ size = 16 }: IconProps) {
-  return <OpenAILogo width={size} height={size} />;
+  return <Logo source={LOGOS.openai} size={size} />;
 }
 
 /** Render the right brand logo for a provider id. */
 export function ProviderIcon({ id, size = 18 }: { id: 'gemini' | 'claude' | 'openai'; size?: number }) {
-  if (id === 'gemini') return <GeminiIcon size={size} />;
-  if (id === 'claude') return <ClaudeIcon size={size} />;
-  return <OpenAIIcon size={size} />;
+  return <Logo source={LOGOS[id]} size={size} />;
 }
 
 /**
@@ -41,7 +46,7 @@ export function ProviderIcon({ id, size = 18 }: { id: 'gemini' | 'claude' | 'ope
  * signal "works with Gemini, Claude and GPT" wherever the AI features surface.
  */
 export function ModelCluster({ chip = 18 }: { chip?: number }) {
-  const icon = Math.round(chip * 0.64);
+  const icon = Math.round(chip * 0.66);
   const overlap = Math.round(chip * 0.36);
   const wrap = [styles.chip, { width: chip, height: chip, borderRadius: chip }];
   return (
@@ -65,6 +70,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: 'rgba(26,19,14,0.12)',
     boxShadow: '0px 1px 2px rgba(26,19,14,0.12)',

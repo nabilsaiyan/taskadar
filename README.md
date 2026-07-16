@@ -120,10 +120,8 @@ Gemini / Claude / OpenAI REST APIs
 ## Customizing branding & imagery
 
 **Provider logos** — the Gemini / Claude / OpenAI marks in the AI pill and the
-settings screen render from `assets/logos/{gemini,claude,openai}.svg`. The files
-shipped here are simple placeholders; drop the official logo SVGs in with the
-same filenames and they render automatically (no code changes — powered by
-`react-native-svg-transformer`, configured in `metro.config.js`).
+settings screen render from `assets/logos/{gemini,claude,openai}.png`. Replace
+any of those images (same filename) to change a logo — no code changes needed.
 
 **Provider images** — provider cards and profiles show a clean, on-brand
 category placeholder (a category-colored tile with the trade's icon). To use a
